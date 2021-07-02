@@ -45,9 +45,7 @@ class EnhanceStep {
     this.isActive = false,
     this.isStepperTypeHorizontalBottom = false,
     this.isStepperTypeHorizontalBottomLineFollowIconMidY = false,
-  }) : assert(title != null),
-        assert(content != null),
-        assert(state != null);
+  });
 
   final Widget? circleChild;
 
@@ -191,10 +189,7 @@ class EnhanceStepper extends StatefulWidget {
     this.onStepContinue,
     this.onStepCancel,
     this.controlsBuilder,
-  }) : assert(steps != null),
-        assert(type != null),
-        assert(currentStep != null),
-        assert(0 <= currentStep && currentStep < steps.length),
+  }) : assert(0 <= currentStep && currentStep < steps.length),
         super(key: key);
 
   /// The steps of the stepper whose titles, subtitles, icons always get shown.
@@ -346,7 +341,6 @@ class _EnhanceStepperState extends State<EnhanceStepper> with TickerProviderStat
   Widget _buildCircleChild(int index, bool oldState) {
     final StepState state = oldState ? _oldStates[index]! : widget.steps[index].state;
     final bool isDarkActive = _isDark() && widget.steps[index].isActive;
-    assert(state != null);
 
     if (widget.steps[index].circleChild != null && state != StepState.error){
       return widget.steps[index].circleChild!;
@@ -514,7 +508,6 @@ class _EnhanceStepperState extends State<EnhanceStepper> with TickerProviderStat
     final ThemeData themeData = Theme.of(context);
     final TextTheme textTheme = themeData.textTheme;
 
-    assert(widget.steps[index].state != null);
     switch (widget.steps[index].state) {
       case StepState.indexed:
       case StepState.editing:
@@ -536,7 +529,6 @@ class _EnhanceStepperState extends State<EnhanceStepper> with TickerProviderStat
     final ThemeData themeData = Theme.of(context);
     final TextTheme textTheme = themeData.textTheme;
 
-    assert(widget.steps[index].state != null);
     switch (widget.steps[index].state) {
       case StepState.indexed:
       case StepState.editing:
@@ -784,7 +776,7 @@ class _EnhanceStepperState extends State<EnhanceStepper> with TickerProviderStat
         );
       return true;
     }());
-    assert(widget.type != null);
+
     switch (widget.type) {
       case StepperType.vertical:
         return _buildVertical();
