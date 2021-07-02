@@ -1,8 +1,24 @@
 # enhance_stepper
 
-* add alternate labels to the stepper in flutter
+[![pub](https://img.shields.io/pub/v/enhance_stepper.svg)](https://pub.dev/packages/enhance_stepper)
+
+An easy to implement Extra features.
+
+* add alternate labels to the stepper in flutter.
 * add step icon change.
 
+```
+EnhanceStepper(
+    stepIconSize: 30,
+    //...
+    steps: tuples.map((e) => EnhanceStep(
+      circleChild: Icon(e.item1, color: Colors.blue, size: 30,),
+    //...
+    isStepperTypeHorizontalBottom: true,
+    isStepperTypeHorizontalBottomLineFollowIconMidY: true,
+    //...
+);
+```
 ## Screenshots
 
 ![](https://github.com/shang1219178163/enhance_stepper/blob/main/screenshot/Simulator%20Screen%20Shot%20-%20iPhone%2011%20Pro%20-%202021-07-02%20at%2015.53.19.png?raw=true)
