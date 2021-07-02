@@ -35,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   int groupValue = 0;
+  
   StepperType _type = StepperType.vertical;
 
   List<Tuple2> tuples = [
