@@ -142,7 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text("Next"),
               ),
               SizedBox(width: 8,),
-              TextButton(onPressed: onStepCancel, child: Text("Back"), ),
+              TextButton(
+                onPressed: onStepCancel, 
+                child: Text("Back"), 
+              ),
             ],
           );
         }
