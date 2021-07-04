@@ -126,7 +126,7 @@ class EnhanceStep {
 ///       go(1);
 ///     },
 ///     onStepTapped: (index) {
-///       DDLog(index);
+///       ddlog(index);
 ///       setState(() {
 ///         _index = index;
 ///       });
@@ -149,12 +149,12 @@ class EnhanceStep {
 ///
 ///   void go(int index) {
 ///      if (index == -1 && _index <= 0 ) {
-///        DDLog("it's first Step!");
+///        ddlog("it's first Step!");
 ///        return;
 ///      }
 ///
 ///      if (index == 1 && _index >= titles.length - 1) {
-///        DDLog("it's last Step!");
+///        ddlog("it's last Step!");
 ///        return;
 ///      }
 ///

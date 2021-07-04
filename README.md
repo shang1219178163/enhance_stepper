@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: [
           TextButton(onPressed: (){
-            DDLog("change");
+            ddlog("change");
             setState(() {
               _type = _type == StepperType.vertical ? StepperType.horizontal : StepperType.vertical;
             });
@@ -91,12 +91,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void go(int index) {
     if (index == -1 && _index <= 0 ) {
-      DDLog("it's first Step!");
+      ddlog("it's first Step!");
       return;
     }
 
     if (index == 1 && _index >= tuples.length - 1) {
-      DDLog("it's last Step!");
+      ddlog("it's last Step!");
       return;
     }
 
@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
           go(1);
         },
         onStepTapped: (index) {
-          DDLog(index);
+          ddlog(index);
           setState(() {
             _index = index;
           });

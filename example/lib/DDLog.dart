@@ -1,14 +1,7 @@
-// import 'package:flutter/material.dart';
 //⚠️ 自定义 日志打印方法
 
-// extension MyObject on Object {
-//   printNew(){
-//     print("${DateTime.now()}: _${this}_");
-//   }
-// }
-
 // ignore: non_constant_identifier_names, unnecessary_question_mark
-void DDLog(dynamic? obj){
+void ddlog(dynamic? obj){
   DDTraceModel model = DDTraceModel(StackTrace.current);
   print("${DateTime.now()}  ${model.fileName}, ${model.className} [line ${model.lineNumber}]: $obj");
 }
