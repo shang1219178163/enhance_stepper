@@ -1,3 +1,3 @@
-## 0.0.4
+## 0.0.5
 
-* TODO: Reformat Code .
+* TODO: add enum  HorizontalTitlePosition and enum  HorizontalLinePosition .

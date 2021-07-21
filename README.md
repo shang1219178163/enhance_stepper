@@ -15,8 +15,8 @@ EnhanceStepper(
     steps: tuples.map((e) => EnhanceStep(
       circleChild: Icon(e.item1, color: Colors.blue, size: 30,),
     //...
-    isStepperTypeHorizontalBottom: true,
-    isStepperTypeHorizontalBottomLineFollowIconMidY: true,
+    horizontalTitlePosition: HorizontalTitlePosition.bottom,
+    horizontalLinePosition: HorizontalLinePosition.top,
     //...
 );
 ```
@@ -115,8 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
           circleChild: Icon(e.item1, color: Colors.blue, size: 30,),
           state: StepState.values[tuples.indexOf(e)],
           isActive: _index == tuples.indexOf(e),
-          isStepperTypeHorizontalBottom: true,
-          isStepperTypeHorizontalBottomLineFollowIconMidY: true,
+          horizontalTitlePosition: HorizontalTitlePosition.bottom,
+          horizontalLinePosition: HorizontalLinePosition.top,
           title: Text("step ${tuples.indexOf(e)}"),
           subtitle: Text("${e.item2.toString().split(".").last}",),
           content: Text("Content for Step ${tuples.indexOf(e)}"),

@@ -9,6 +9,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
+/// Defines the [Stepper]'s titles position.
+enum HorizontalTitlePosition {
+  /// A horizontal layout of the steps with their in-between the titles position.
+  inline,
+  /// A horizontal layout of the steps with their in-between the titles position.
+  bottom,
+}
+
+/// Defines the [Stepper]'s separator position.
+enum HorizontalLinePosition {
+  /// A horizontal layout of the steps with their in-between the separator position.
+  center,
+  /// A horizontal layout of the steps with their in-between the separator position.
+  top,
+}
+
 const TextStyle _kStepStyle = TextStyle(
   fontSize: 12.0,
   color: Colors.white,
@@ -43,8 +60,8 @@ class EnhanceStep {
     required this.content,
     this.state = StepState.indexed,
     this.isActive = false,
-    this.isStepperTypeHorizontalBottom = false,
-    this.isStepperTypeHorizontalBottomLineFollowIconMidY = false,
+    this.horizontalTitlePosition = HorizontalTitlePosition.inline,
+    this.horizontalLinePosition = HorizontalLinePosition.center,
   });
 
   final Widget? circleChild;
@@ -70,11 +87,11 @@ class EnhanceStep {
   /// Whether or not the step is active. The flag only influences styling.
   final bool isActive;
 
-  /// title and subtitle below the StepIcon, default value false
-  final bool isStepperTypeHorizontalBottom;
+  /// Title and subtitle below the StepIcon. The default value is `HorizontalTitlePosition.inline`.
+  final HorizontalTitlePosition horizontalTitlePosition;
 
-  /// line flow StepIcon's midY, default value false
-  final bool isStepperTypeHorizontalBottomLineFollowIconMidY;
+  /// Title and subtitle below the StepIcon. The default value is `HorizontalLinePosition.center`.
+  final HorizontalLinePosition horizontalLinePosition;
 }
 
 /// A material stepper widget that displays progress through a sequence of
@@ -576,7 +593,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
   Widget _buildHeaderText(int index) {
     return Column(
       crossAxisAlignment: widget.type == StepperType.horizontal &&
-              widget.steps[index].isStepperTypeHorizontalBottom
+              widget.steps[index].horizontalTitlePosition == HorizontalTitlePosition.bottom
           ? CrossAxisAlignment.center
           : CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -735,7 +752,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
               : null,
           canRequestFocus: widget.steps[i].state != StepState.disabled,
           child: widget.type == StepperType.horizontal &&
-                  widget.steps[i].isStepperTypeHorizontalBottom
+                  widget.steps[i].horizontalTitlePosition == HorizontalTitlePosition.bottom
               ? _buildHorizontalBottom(i)
               : Row(
                   children: <Widget>[
@@ -761,10 +778,9 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                   height: 1.0,
                   color: Colors.grey.shade400,
                 ),
-                if (widget.type == StepperType.horizontal &&
-                    widget.steps[i].isStepperTypeHorizontalBottom &&
-                    widget.steps[i]
-                        .isStepperTypeHorizontalBottomLineFollowIconMidY)
+                if (widget.type == StepperType.horizontal
+                    && widget.steps[i].horizontalTitlePosition == HorizontalTitlePosition.bottom
+                    && widget.steps[i].horizontalLinePosition == HorizontalLinePosition.top)
                   const SizedBox(height: 44)
                 else
                   const SizedBox(height: 0),
