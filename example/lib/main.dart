@@ -132,8 +132,6 @@ class _MyHomePageState extends State<MyHomePage> {
         steps: tuples.map((e) => Step(
           state: StepState.values[tuples.indexOf(e)],
           isActive: _index == tuples.indexOf(e),
-          isStepperTypeHorizontalBottom: true,
-          isStepperTypeHorizontalBottomLineFollowIconMidY: true,
           title: Text("step ${tuples.indexOf(e)}"),
           subtitle: Text("${e.item2.toString().split(".").last}",),
           content: Text("Content for Step ${tuples.indexOf(e)}"),
