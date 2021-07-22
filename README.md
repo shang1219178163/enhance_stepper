@@ -11,10 +11,7 @@ An easy to implement Extra features.
 ```
 EnhanceStepper(
     stepIconSize: 30,
-    //...
-    steps: tuples.map((e) => EnhanceStep(
-      circleChild: Icon(e.item1, color: Colors.blue, size: 30,),
-    //...
+    type: _type,
     horizontalTitlePosition: HorizontalTitlePosition.bottom,
     horizontalLinePosition: HorizontalLinePosition.top,
     //...
@@ -109,14 +106,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return EnhanceStepper(
         stepIconSize: 30,
         type: _type,
+        horizontalTitlePosition: HorizontalTitlePosition.bottom,
+        horizontalLinePosition: HorizontalLinePosition.top,
         currentStep: _index,
         physics: ClampingScrollPhysics(),
         steps: tuples.map((e) => EnhanceStep(
           circleChild: Icon(e.item1, color: Colors.blue, size: 30,),
           state: StepState.values[tuples.indexOf(e)],
           isActive: _index == tuples.indexOf(e),
-          horizontalTitlePosition: HorizontalTitlePosition.bottom,
-          horizontalLinePosition: HorizontalLinePosition.top,
           title: Text("step ${tuples.indexOf(e)}"),
           subtitle: Text("${e.item2.toString().split(".").last}",),
           content: Text("Content for Step ${tuples.indexOf(e)}"),
