@@ -9,11 +9,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 /// Defines the [Stepper]'s titles position.
 enum HorizontalTitlePosition {
   /// A horizontal layout of the steps with their titles position.
   inline,
+
   /// A horizontal layout of the steps with their titles position.
   bottom,
 }
@@ -22,6 +22,7 @@ enum HorizontalTitlePosition {
 enum HorizontalLinePosition {
   /// A horizontal layout of the steps with their separator position in-between the titles.
   center,
+
   /// A horizontal layout of the steps with their separator position in-between the titles.
   top,
 }
@@ -753,7 +754,8 @@ class _EnhanceStepperState extends State<EnhanceStepper>
               : null,
           canRequestFocus: widget.steps[i].state != StepState.disabled,
           child: widget.type == StepperType.horizontal &&
-                  widget.horizontalTitlePosition == HorizontalTitlePosition.bottom
+                  widget.horizontalTitlePosition ==
+                      HorizontalTitlePosition.bottom
               ? _buildHorizontalBottom(i)
               : Row(
                   children: <Widget>[
@@ -779,9 +781,11 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                   height: 1.0,
                   color: Colors.grey.shade400,
                 ),
-                if (widget.type == StepperType.horizontal
-                    && widget.horizontalLinePosition == HorizontalLinePosition.top
-                    && widget.horizontalTitlePosition == HorizontalTitlePosition.bottom)
+                if (widget.type == StepperType.horizontal &&
+                    widget.horizontalLinePosition ==
+                        HorizontalLinePosition.top &&
+                    widget.horizontalTitlePosition ==
+                        HorizontalTitlePosition.bottom)
                   const SizedBox(height: 44)
                 else
                   const SizedBox(height: 0),
