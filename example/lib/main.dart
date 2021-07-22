@@ -42,8 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Tuple2(Icons.directions_bike, StepState.indexed, ),
     Tuple2(Icons.directions_bus, StepState.editing, ),
     Tuple2(Icons.directions_railway, StepState.complete, ),
-    Tuple2(Icons.directions_boat, StepState.disabled, ),
-    Tuple2(Icons.directions_car, StepState.error, ),
+    // Tuple2(Icons.directions_boat, StepState.disabled, ),
+    // Tuple2(Icons.directions_car, StepState.error, ),
   ];
 
   int _index = 0;
@@ -169,14 +169,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return EnhanceStepper(
         stepIconSize: 30,
         type: _type,
+        horizontalTitlePosition: HorizontalTitlePosition.bottom,
+        horizontalLinePosition: HorizontalLinePosition.top,
         currentStep: _index,
         physics: ClampingScrollPhysics(),
         steps: tuples.map((e) => EnhanceStep(
           circleChild: Icon(e.item1, color: Colors.blue, size: 30,),
           state: StepState.values[tuples.indexOf(e)],
           isActive: _index == tuples.indexOf(e),
-          horizontalTitlePosition: HorizontalTitlePosition.bottom,
-          horizontalLinePosition: HorizontalLinePosition.top,
           title: Text("step ${tuples.indexOf(e)}"),
           subtitle: Text("${e.item2.toString().split(".").last}",),
           content: Text("Content for Step ${tuples.indexOf(e)}"),

@@ -60,8 +60,6 @@ class EnhanceStep {
     required this.content,
     this.state = StepState.indexed,
     this.isActive = false,
-    this.horizontalTitlePosition = HorizontalTitlePosition.inline,
-    this.horizontalLinePosition = HorizontalLinePosition.center,
   });
 
   final Widget? circleChild;
@@ -86,12 +84,6 @@ class EnhanceStep {
 
   /// Whether or not the step is active. The flag only influences styling.
   final bool isActive;
-
-  /// Title and subtitle below the StepIcon. The default value is `HorizontalTitlePosition.inline`.
-  final HorizontalTitlePosition horizontalTitlePosition;
-
-  /// Title and subtitle below the StepIcon. The default value is `HorizontalLinePosition.center`.
-  final HorizontalLinePosition horizontalLinePosition;
 }
 
 /// A material stepper widget that displays progress through a sequence of
@@ -124,14 +116,15 @@ class EnhanceStep {
 /// return EnhanceStepper(
 ///     stepSize: 40,
 ///     type: _type,
+///     horizontalTitlePosition: HorizontalTitlePosition.bottom,
+///     horizontalLinePosition: HorizontalLinePosition.top,
 ///     currentStep: _index,
 ///     physics: ClampingScrollPhysics(),
 ///     steps: tuples.map((e) => EnhanceStep(
 ///       circleChild: Icon(e.item1, color: Colors.blue, size: 40,),
 ///       state: StepState.values[tuples.indexOf(e)],
 ///       isActive: _index == tuples.indexOf(e),
-///       isStepperTypeHorizontalBottom: true,
-///       isStepperTypeHorizontalBottomLineFollowIconMidY: true,
+///       horizontalLinePosition = HorizontalLinePosition.top,
 ///       title: Text("step ${tuples.indexOf(e)}"),
 ///       subtitle: Text("subtitle_${tuples.indexOf(e)}_${e.item2.toString()}",),
 ///       content: Text("Content for Step ${tuples.indexOf(e)}"),
@@ -201,6 +194,8 @@ class EnhanceStepper extends StatefulWidget {
     this.physics,
     this.stepIconSize = _kStepSize,
     this.type = StepperType.vertical,
+    this.horizontalTitlePosition = HorizontalTitlePosition.inline,
+    this.horizontalLinePosition = HorizontalLinePosition.top,
     this.currentStep = 0,
     this.onStepTapped,
     this.onStepContinue,
@@ -231,6 +226,12 @@ class EnhanceStepper extends StatefulWidget {
   /// underneath as opposed to the [StepperType.vertical] case where it is
   /// displayed in-between.
   final StepperType type;
+
+  /// [StepperType.horizontal], Title and subtitle below the StepIcon. The default value is `HorizontalTitlePosition.inline`.
+  final HorizontalTitlePosition horizontalTitlePosition;
+
+  /// [StepperType.horizontal], the steps with their in-between the separator position. The default value is `HorizontalLinePosition.center`.
+  final HorizontalLinePosition horizontalLinePosition;
 
   /// The index into [steps] of the current step whose content is displayed.
   final int currentStep;
@@ -593,7 +594,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
   Widget _buildHeaderText(int index) {
     return Column(
       crossAxisAlignment: widget.type == StepperType.horizontal &&
-              widget.steps[index].horizontalTitlePosition == HorizontalTitlePosition.bottom
+              widget.horizontalTitlePosition == HorizontalTitlePosition.bottom
           ? CrossAxisAlignment.center
           : CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -752,7 +753,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
               : null,
           canRequestFocus: widget.steps[i].state != StepState.disabled,
           child: widget.type == StepperType.horizontal &&
-                  widget.steps[i].horizontalTitlePosition == HorizontalTitlePosition.bottom
+                  widget.horizontalTitlePosition == HorizontalTitlePosition.bottom
               ? _buildHorizontalBottom(i)
               : Row(
                   children: <Widget>[
@@ -779,8 +780,8 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                   color: Colors.grey.shade400,
                 ),
                 if (widget.type == StepperType.horizontal
-                    && widget.steps[i].horizontalTitlePosition == HorizontalTitlePosition.bottom
-                    && widget.steps[i].horizontalLinePosition == HorizontalLinePosition.top)
+                    && widget.horizontalLinePosition == HorizontalLinePosition.top
+                    && widget.horizontalTitlePosition == HorizontalTitlePosition.bottom)
                   const SizedBox(height: 44)
                 else
                   const SizedBox(height: 0),
