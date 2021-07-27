@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
         currentStep: _index,
         physics: ClampingScrollPhysics(),
         steps: tuples.map((e) => EnhanceStep(
-          circleChild: Icon(e.item1, color: Colors.blue, size: 30,),
+          icon: Icon(e.item1, color: Colors.blue, size: 30,),
           state: StepState.values[tuples.indexOf(e)],
           isActive: _index == tuples.indexOf(e),
           title: Text("step ${tuples.indexOf(e)}"),

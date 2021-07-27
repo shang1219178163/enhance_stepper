@@ -202,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
         physics: ClampingScrollPhysics(),
         steps: tuples
             .map((e) => EnhanceStep(
-                  circleChild: Icon(
+                  icon: Icon(
                     e.item1,
                     color: Colors.blue,
                     size: 30,

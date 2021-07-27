@@ -55,7 +55,7 @@ class EnhanceStep {
   ///
   /// The [title], [content], and [state] arguments must not be null.
   const EnhanceStep({
-    this.circleChild,
+    this.icon,
     required this.title,
     this.subtitle,
     required this.content,
@@ -63,7 +63,8 @@ class EnhanceStep {
     this.isActive = false,
   });
 
-  final Widget? circleChild;
+  /// The icon of the step.
+  final Widget? icon;
 
   /// The title of the step that typically describes it.
   final Widget title;
@@ -122,7 +123,7 @@ class EnhanceStep {
 ///     currentStep: _index,
 ///     physics: ClampingScrollPhysics(),
 ///     steps: tuples.map((e) => EnhanceStep(
-///       circleChild: Icon(e.item1, color: Colors.blue, size: 40,),
+///       icon: Icon(e.item1, color: Colors.blue, size: 40,),
 ///       state: StepState.values[tuples.indexOf(e)],
 ///       isActive: _index == tuples.indexOf(e),
 ///       horizontalLinePosition = HorizontalLinePosition.top,
@@ -358,13 +359,13 @@ class _EnhanceStepperState extends State<EnhanceStepper>
     );
   }
 
-  Widget _buildCircleChild(int index, bool oldState) {
+  Widget _buildicon(int index, bool oldState) {
     final StepState state =
         oldState ? _oldStates[index]! : widget.steps[index].state;
     final bool isDarkActive = _isDark() && widget.steps[index].isActive;
 
-    if (widget.steps[index].circleChild != null && state != StepState.error) {
-      return widget.steps[index].circleChild!;
+    if (widget.steps[index].icon != null && state != StepState.error) {
+      return widget.steps[index].icon!;
     }
 
     switch (state) {
@@ -417,11 +418,11 @@ class _EnhanceStepperState extends State<EnhanceStepper>
         curve: Curves.fastOutSlowIn,
         duration: kThemeAnimationDuration,
         decoration: BoxDecoration(
-          color: step.circleChild != null ? null : _circleColor(index),
+          color: step.icon != null ? null : _circleColor(index),
           shape: BoxShape.circle,
         ),
         child: Center(
-          child: _buildCircleChild(
+          child: _buildicon(
               index, oldState && step.state == StepState.error),
         ),
       ),
@@ -445,7 +446,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
             child: Align(
               alignment: const Alignment(0.0, 0.8),
               // 0.8 looks better than the geometrical 0.33.
-              child: _buildCircleChild(index,
+              child: _buildicon(index,
                   oldState && widget.steps[index].state != StepState.error),
             ),
           ),
