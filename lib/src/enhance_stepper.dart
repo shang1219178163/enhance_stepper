@@ -422,8 +422,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
           shape: BoxShape.circle,
         ),
         child: Center(
-          child: _buildicon(
-              index, oldState && step.state == StepState.error),
+          child: _buildicon(index, oldState && step.state == StepState.error),
         ),
       ),
     );
