@@ -54,6 +54,7 @@ class DDTraceModel {
           var traceString1 = this._trace.toString().split("\n")[1];
           List<String> list = traceString1
               .replaceAll("#1", "")
+              .replaceAll(".<anonymous closure>", "")
               .replaceAll(")", "")
               .replaceAll("(", "")
               .replaceAll(".dart:", ".dart ")
