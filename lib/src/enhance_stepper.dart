@@ -723,7 +723,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
     );
   }
 
-  Widget _buildHorizontalBottomTitleBody(int i) {
+  Widget _buildHorizontalBottomTitle(int i) {
     return Column(
       children: <Widget>[
         SizedBox(
@@ -755,7 +755,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
           child: widget.type == StepperType.horizontal &&
                   widget.horizontalTitlePosition ==
                       HorizontalTitlePosition.bottom
-              ? _buildHorizontalBottomTitleBody(i)
+              ? _buildHorizontalBottomTitle(i)
               : Row(
                   children: <Widget>[
                     SizedBox(
