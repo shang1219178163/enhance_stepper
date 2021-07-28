@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int groupValue = 0;
 
-  StepperType _type = StepperType.vertical;
+  StepperType _type = StepperType.horizontal;
 
   List<Tuple2> tuples = [
     Tuple2(
@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Tuple2(Icons.directions_car, StepState.error, ),
   ];
 
-  int _index = 0;
+  int _index = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         bottom: buildPreferredSize(context),
       ),
-      body:
-          groupValue == 0 ? buildStepper(context) : buildStepperCustom(context),
+      body: groupValue == 0 ? buildStepper(context) : buildStepperCustom(context),
+      // body: buildStepperCustom(context),
     );
   }
 
@@ -194,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget buildStepperCustom(BuildContext context) {
     return EnhanceStepper(
-        stepIconSize: 30,
+        stepIconSize: 60,
         type: _type,
         horizontalTitlePosition: HorizontalTitlePosition.bottom,
         horizontalLinePosition: HorizontalLinePosition.top,
@@ -204,10 +204,11 @@ class _MyHomePageState extends State<MyHomePage> {
             .map((e) => EnhanceStep(
                   icon: Icon(
                     e.item1,
+                    // Icons.add,
                     color: Colors.blue,
-                    size: 30,
+                    size: 60,
                   ),
-                  // state: StepState.values[tuples.indexOf(e)],
+                  state: StepState.values[tuples.indexOf(e)],
                   isActive: _index == tuples.indexOf(e),
                   title: Text("step ${tuples.indexOf(e)}"),
                   subtitle: Text(

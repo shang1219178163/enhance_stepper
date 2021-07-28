@@ -743,8 +743,6 @@ class _EnhanceStepperState extends State<EnhanceStepper>
   }
 
   Widget _buildHorizontal() {
-    print("_buildHorizontal");
-    print((widget.stepIconSize ?? _kStepSize));
     final List<Widget> children = <Widget>[
       for (int i = 0; i < widget.steps.length; i += 1) ...<Widget>[
         InkResponse(
@@ -754,8 +752,9 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                 }
               : null,
           canRequestFocus: widget.steps[i].state != StepState.disabled,
-          child: widget.type == StepperType.horizontal
-              && widget.horizontalTitlePosition == HorizontalTitlePosition.bottom
+          child: widget.type == StepperType.horizontal &&
+                  widget.horizontalTitlePosition ==
+                      HorizontalTitlePosition.bottom
               ? _buildHorizontalBottomTitleBody(i)
               : Row(
                   children: <Widget>[
@@ -781,9 +780,10 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                   height: 1.0,
                   color: Colors.grey.shade400,
                 ),
-                if (widget.type == StepperType.horizontal
-                    && widget.horizontalTitlePosition == HorizontalTitlePosition.bottom
-                    && widget.horizontalLinePosition == HorizontalLinePosition.top)
+                if (widget.type == StepperType.horizontal &&
+                    widget.horizontalTitlePosition ==
+                        HorizontalTitlePosition.bottom &&
+                    widget.horizontalLinePosition == HorizontalLinePosition.top)
                   const SizedBox(height: 48)
                 else
                   const SizedBox(height: 0)
