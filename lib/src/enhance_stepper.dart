@@ -355,7 +355,6 @@ class _EnhanceStepperState extends State<EnhanceStepper>
       width: visible ? 1.0 : 0.0,
       height: 16.0,
       color: Colors.grey.shade400,
-      // color: Colors.red,
     );
   }
 
@@ -381,13 +380,13 @@ class _EnhanceStepperState extends State<EnhanceStepper>
         return Icon(
           Icons.edit,
           color: isDarkActive ? _kCircleActiveDark : _kCircleActiveLight,
-          size: 18.0,
+          size: (widget.stepIconSize ?? _kStepSize) - 6.0,
         );
       case StepState.complete:
         return Icon(
           Icons.check,
           color: isDarkActive ? _kCircleActiveDark : _kCircleActiveLight,
-          size: 18.0,
+          size: (widget.stepIconSize ?? _kStepSize) - 6.0,
         );
       case StepState.error:
         return const Text('!', style: _kStepStyle);
@@ -412,8 +411,8 @@ class _EnhanceStepperState extends State<EnhanceStepper>
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
-      width: widget.stepIconSize,
-      height: widget.stepIconSize,
+      width: (widget.stepIconSize ?? _kStepSize),
+      height: (widget.stepIconSize ?? _kStepSize),
       child: AnimatedContainer(
         curve: Curves.fastOutSlowIn,
         duration: kThemeAnimationDuration,
@@ -431,8 +430,8 @@ class _EnhanceStepperState extends State<EnhanceStepper>
   Widget _buildTriangle(int index, bool oldState) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
-      width: widget.stepIconSize,
-      height: widget.stepIconSize,
+      width: (widget.stepIconSize ?? _kStepSize),
+      height: (widget.stepIconSize ?? _kStepSize),
       child: Center(
         child: SizedBox(
           width: widget.stepIconSize,
@@ -724,11 +723,11 @@ class _EnhanceStepperState extends State<EnhanceStepper>
     );
   }
 
-  Widget _buildHorizontalBottom(int i) {
+  Widget _buildHorizontalBottomTitleBody(int i) {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 48.0,
+          height: (widget.stepIconSize ?? _kStepSize) + 24,
           child: Center(
             child: _buildIcon(i),
           ),
@@ -744,6 +743,8 @@ class _EnhanceStepperState extends State<EnhanceStepper>
   }
 
   Widget _buildHorizontal() {
+    print("_buildHorizontal");
+    print((widget.stepIconSize ?? _kStepSize));
     final List<Widget> children = <Widget>[
       for (int i = 0; i < widget.steps.length; i += 1) ...<Widget>[
         InkResponse(
@@ -753,10 +754,9 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                 }
               : null,
           canRequestFocus: widget.steps[i].state != StepState.disabled,
-          child: widget.type == StepperType.horizontal &&
-                  widget.horizontalTitlePosition ==
-                      HorizontalTitlePosition.bottom
-              ? _buildHorizontalBottom(i)
+          child: widget.type == StepperType.horizontal
+              && widget.horizontalTitlePosition == HorizontalTitlePosition.bottom
+              ? _buildHorizontalBottomTitleBody(i)
               : Row(
                   children: <Widget>[
                     SizedBox(
@@ -781,14 +781,12 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                   height: 1.0,
                   color: Colors.grey.shade400,
                 ),
-                if (widget.type == StepperType.horizontal &&
-                    widget.horizontalLinePosition ==
-                        HorizontalLinePosition.top &&
-                    widget.horizontalTitlePosition ==
-                        HorizontalTitlePosition.bottom)
-                  const SizedBox(height: 44)
+                if (widget.type == StepperType.horizontal
+                    && widget.horizontalTitlePosition == HorizontalTitlePosition.bottom
+                    && widget.horizontalLinePosition == HorizontalLinePosition.top)
+                  const SizedBox(height: 48)
                 else
-                  const SizedBox(height: 0),
+                  const SizedBox(height: 0)
               ],
             ),
           ),
