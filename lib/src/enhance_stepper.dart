@@ -205,8 +205,12 @@ class EnhanceStepper extends StatefulWidget {
     this.controlsBuilder,
     this.elevation,
     this.padding,
+    this.backgroundColor,
   })  : assert(0 <= currentStep && currentStep < steps.length),
         super(key: key);
+
+  // Background color of stepper
+  final Color? backgroundColor;
 
   // Padding of stepper content
   final EdgeInsets? padding;
@@ -804,6 +808,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
     return Column(
       children: <Widget>[
         Material(
+          color: widget.backgroundColor ?? Colors.white,
           elevation: widget.elevation ?? 2.0,
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 24.0),
