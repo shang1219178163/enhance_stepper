@@ -203,8 +203,16 @@ class EnhanceStepper extends StatefulWidget {
     this.onStepContinue,
     this.onStepCancel,
     this.controlsBuilder,
+    this.elevation,
+    this.padding,
   })  : assert(0 <= currentStep && currentStep < steps.length),
         super(key: key);
+
+  // Padding of stepper content
+  final EdgeInsets? padding;
+
+  // The elevation of stepper
+  final double? elevation;
 
   /// The steps of the stepper whose titles, subtitles, icons always get shown.
   ///
@@ -796,7 +804,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
     return Column(
       children: <Widget>[
         Material(
-          elevation: 2.0,
+          elevation: widget.elevation ?? 2.0,
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Row(
@@ -807,7 +815,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
         Expanded(
           child: ListView(
             physics: widget.physics,
-            padding: const EdgeInsets.all(24.0),
+            padding: widget.padding ?? const EdgeInsets.all(24.0),
             children: <Widget>[
               AnimatedSize(
                 curve: Curves.fastOutSlowIn,
