@@ -194,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget buildStepperCustom(BuildContext context) {
     return EnhanceStepper(
-        stepIconSize: 60,
+        // stepIconSize: 60,
         type: _type,
         horizontalTitlePosition: HorizontalTitlePosition.bottom,
         horizontalLinePosition: HorizontalLinePosition.top,
@@ -202,12 +202,12 @@ class _MyHomePageState extends State<MyHomePage> {
         physics: ClampingScrollPhysics(),
         steps: tuples
             .map((e) => EnhanceStep(
-                  icon: Icon(
-                    e.item1,
-                    // Icons.add,
-                    color: Colors.blue,
-                    size: 60,
-                  ),
+                  // icon: Icon(
+                  //   e.item1,
+                  //   // Icons.add,
+                  //   color: Colors.blue,
+                  //   size: 60,
+                  // ),
                   state: StepState.values[tuples.indexOf(e)],
                   isActive: _index == tuples.indexOf(e),
                   title: Text("step ${tuples.indexOf(e)}"),
