@@ -280,15 +280,15 @@ class EnhanceStepper extends StatefulWidget {
   /// Widget build(BuildContext context) {
   ///   return Stepper(
   ///     controlsBuilder:
-  ///       (BuildContext context, { VoidCallback? onStepContinue, VoidCallback? onStepCancel }) {
+  ///       (BuildContext context, ControlsDetails details) {
   ///          return Row(
   ///            children: <Widget>[
   ///              TextButton(
-  ///                onPressed: onStepContinue,
+  ///                onPressed: details.onStepContinue,
   ///                child: const Text('NEXT'),
   ///              ),
   ///              TextButton(
-  ///                onPressed: onStepCancel,
+  ///                onPressed: details.onStepCancel,
   ///                child: const Text('CANCEL'),
   ///              ),
   ///            ],
@@ -486,11 +486,17 @@ class _EnhanceStepperState extends State<EnhanceStepper>
     }
   }
 
-  Widget _buildVerticalControls() {
+  Widget _buildVerticalControls(int stepIndex) {
     if (widget.controlsBuilder != null)
-      return widget.controlsBuilder!(context,
+      return widget.controlsBuilder!(
+        context,
+        ControlsDetails(
+          currentStep: widget.currentStep,
           onStepContinue: widget.onStepContinue,
-          onStepCancel: widget.onStepCancel);
+          onStepCancel: widget.onStepCancel,
+          stepIndex: stepIndex,
+        ),
+      );
 
     final Color cancelColor;
     switch (Theme.of(context).brightness) {
@@ -686,7 +692,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
             child: Column(
               children: <Widget>[
                 widget.steps[index].content,
-                _buildVerticalControls(),
+                _buildVerticalControls(index),
               ],
             ),
           ),
@@ -826,9 +832,8 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                 curve: Curves.fastOutSlowIn,
                 duration: kThemeAnimationDuration,
                 child: widget.steps[widget.currentStep].content,
-                vsync: this,
               ),
-              _buildVerticalControls(),
+              _buildVerticalControls(widget.currentStep),
             ],
           ),
         ),

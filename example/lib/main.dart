@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Icons.directions_railway,
       StepState.complete,
     ),
-    // Tuple2(Icons.directions_boat, StepState.disabled, ),
+    Tuple2(Icons.directions_boat, StepState.disabled, ),
     // Tuple2(Icons.directions_car, StepState.error, ),
   ];
 
@@ -169,22 +169,21 @@ class _MyHomePageState extends State<MyHomePage> {
             _index = index;
           });
         },
-        controlsBuilder: (BuildContext context,
-            {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
+        controlsBuilder: (BuildContext context, ControlsDetails details) {
           return Row(
             children: [
               SizedBox(
                 height: 30,
               ),
               ElevatedButton(
-                onPressed: onStepContinue,
+                onPressed: details.onStepContinue,
                 child: Text("Next"),
               ),
               SizedBox(
                 width: 8,
               ),
               TextButton(
-                onPressed: onStepCancel,
+                onPressed: details.onStepCancel,
                 child: Text("Back"),
               ),
             ],
@@ -229,22 +228,21 @@ class _MyHomePageState extends State<MyHomePage> {
             _index = index;
           });
         },
-        controlsBuilder: (BuildContext context,
-            {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
+        controlsBuilder: (BuildContext context, ControlsDetails details) {
           return Row(
             children: [
               SizedBox(
                 height: 30,
               ),
               ElevatedButton(
-                onPressed: onStepContinue,
+                onPressed: details.onStepContinue,
                 child: Text("Next"),
               ),
               SizedBox(
                 width: 8,
               ),
               TextButton(
-                onPressed: onStepCancel,
+                onPressed: details.onStepCancel,
                 child: Text("Back"),
               ),
             ],
