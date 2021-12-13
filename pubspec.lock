@@ -127,7 +127,7 @@ packages:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.2"
   typed_data:
     dependency: transitive
     description:
