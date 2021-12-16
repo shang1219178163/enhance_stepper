@@ -6,10 +6,14 @@
 //  Copyright © 7/2/21 shang. All rights reserved.
 //
 
+// add enum  HorizontalTitlePosition and enum  HorizontalLinePosition. circleChild replace by icon.
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// Defines the [Stepper]'s titles position when the [type] is [StepperType.horizontal].
+
+/// Defines the [Stepper]'s titles position when the type is [StepperType.horizontal].
 enum HorizontalTitlePosition {
   /// A horizontal layout of the steps with their titles position.
   inline,
@@ -18,7 +22,7 @@ enum HorizontalTitlePosition {
   bottom,
 }
 
-/// Defines the [Stepper]'s separator position when the [type] is [StepperType.horizontal].
+/// Defines the [Stepper]'s separator position when the type is [StepperType.horizontal].
 enum HorizontalLinePosition {
   /// A horizontal layout of the steps with their separator position in-between the titles.
   center,
