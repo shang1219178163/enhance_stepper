@@ -799,9 +799,10 @@ class _EnhanceStepperState extends State<EnhanceStepper>
           color: widget.backgroundColor ?? Colors.white,
           elevation: widget.elevation ?? 2.0,
           child: SizedBox(
-            height: widget.horizontalStepperHeight ?? 130, //
+            height: widget.horizontalStepperHeight ?? 130,
             child: ListView(
               scrollDirection: Axis.horizontal,
+              physics: widget.physics,
               children: children
                   .map((e) => Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
