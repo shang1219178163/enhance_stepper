@@ -6,7 +6,6 @@
 //  Copyright © 7/2/21 shang. All rights reserved.
 //
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// Defines the [Stepper]'s titles position when the [type] is [StepperType.horizontal].
@@ -206,8 +205,12 @@ class EnhanceStepper extends StatefulWidget {
     this.elevation,
     this.padding,
     this.backgroundColor,
+    this.horizontalStepperHeight,
   })  : assert(0 <= currentStep && currentStep < steps.length),
         super(key: key);
+
+  // Height of horizontal stepper, default is [130]
+  final double? horizontalStepperHeight;
 
   // Background color of stepper
   final Color? backgroundColor;
@@ -488,9 +491,13 @@ class _EnhanceStepperState extends State<EnhanceStepper>
 
   Widget _buildVerticalControls() {
     if (widget.controlsBuilder != null)
-      return widget.controlsBuilder!(context,
-          onStepContinue: widget.onStepContinue,
-          onStepCancel: widget.onStepCancel);
+      return widget.controlsBuilder!(
+        context,
+        ControlsDetails(
+          currentStep: widget.currentStep,
+          stepIndex: widget.currentStep,
+        ),
+      );
 
     final Color cancelColor;
     switch (Theme.of(context).brightness) {
@@ -783,25 +790,6 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                   ],
                 ),
         ),
-        if (!_isLast(i))
-          Expanded(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  height: 1.0,
-                  color: Colors.grey.shade400,
-                ),
-                if (widget.type == StepperType.horizontal &&
-                    widget.horizontalTitlePosition ==
-                        HorizontalTitlePosition.bottom &&
-                    widget.horizontalLinePosition == HorizontalLinePosition.top)
-                  const SizedBox(height: 48)
-                else
-                  const SizedBox(height: 0)
-              ],
-            ),
-          ),
       ],
     ];
 
@@ -810,10 +798,16 @@ class _EnhanceStepperState extends State<EnhanceStepper>
         Material(
           color: widget.backgroundColor ?? Colors.white,
           elevation: widget.elevation ?? 2.0,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Row(
-              children: children,
+          child: SizedBox(
+            height: widget.horizontalStepperHeight ?? 130, //
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: children
+                  .map((e) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: e,
+                      ))
+                  .toList(),
             ),
           ),
         ),
@@ -826,7 +820,6 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                 curve: Curves.fastOutSlowIn,
                 duration: kThemeAnimationDuration,
                 child: widget.steps[widget.currentStep].content,
-                vsync: this,
               ),
               _buildVerticalControls(),
             ],
