@@ -8,10 +8,8 @@
 
 // add enum  HorizontalTitlePosition and enum  HorizontalLinePosition. circleChild replace by icon.
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 /// Defines the [Stepper]'s titles position when the type is [StepperType.horizontal].
 enum HorizontalTitlePosition {
@@ -207,8 +205,24 @@ class EnhanceStepper extends StatefulWidget {
     this.onStepContinue,
     this.onStepCancel,
     this.controlsBuilder,
+    this.elevation,
+    this.padding,
+    this.backgroundColor,
+    this.horizontalStepperHeight,
   })  : assert(0 <= currentStep && currentStep < steps.length),
         super(key: key);
+
+  // Height of horizontal stepper, default is [130]
+  final double? horizontalStepperHeight;
+
+  // Background color of stepper
+  final Color? backgroundColor;
+
+  // Padding of stepper content
+  final EdgeInsets? padding;
+
+  // The elevation of stepper
+  final double? elevation;
 
   /// The steps of the stepper whose titles, subtitles, icons always get shown.
   ///
@@ -755,6 +769,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
   Widget _buildHorizontal() {
     final List<Widget> children = <Widget>[
       for (int i = 0; i < widget.steps.length; i += 1) ...<Widget>[
+        if (_isFirst(i)) SizedBox(width: 10),
         InkResponse(
           onTap: widget.steps[i].state != StepState.disabled
               ? () {
@@ -782,42 +797,50 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                 ),
         ),
         if (!_isLast(i))
-          Expanded(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  height: 1.0,
-                  color: Colors.grey.shade400,
-                ),
-                if (widget.type == StepperType.horizontal &&
-                    widget.horizontalTitlePosition ==
-                        HorizontalTitlePosition.bottom &&
-                    widget.horizontalLinePosition == HorizontalLinePosition.top)
-                  const SizedBox(height: 48)
-                else
-                  const SizedBox(height: 0)
-              ],
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 1,
+                width: 10,
+                color: Colors.grey.shade400,
+              ),
+              if (widget.type == StepperType.horizontal &&
+                  widget.horizontalTitlePosition ==
+                      HorizontalTitlePosition.bottom &&
+                  widget.horizontalLinePosition == HorizontalLinePosition.top)
+                const SizedBox(height: 48)
+              else
+                const SizedBox(height: 0)
+            ],
           ),
+        if (_isLast(i)) SizedBox(width: 10),
       ],
     ];
 
     return Column(
       children: <Widget>[
         Material(
-          elevation: 2.0,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Row(
-              children: children,
+          elevation: widget.elevation ?? 2.0,
+          color: widget.backgroundColor ?? Colors.white,
+          child: SizedBox(
+            height: widget.horizontalStepperHeight ?? 100,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              physics: widget.physics,
+              children: children
+                  .map((e) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        child: e,
+                      ))
+                  .toList(),
             ),
           ),
         ),
         Expanded(
           child: ListView(
             physics: widget.physics,
-            padding: const EdgeInsets.all(24.0),
+            padding: widget.padding ?? const EdgeInsets.all(24.0),
             children: <Widget>[
               AnimatedSize(
                 curve: Curves.fastOutSlowIn,
