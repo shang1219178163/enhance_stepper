@@ -58,6 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
       Icons.directions_car,
       StepState.error,
     ),
+    Tuple2(
+      Icons.directions_boat,
+      StepState.disabled,
+    ),
+    Tuple2(
+      Icons.directions_car,
+      StepState.error,
+    ),
   ];
 
   int _index = 1;
@@ -197,19 +205,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget buildStepperCustom(BuildContext context) {
     return EnhanceStepper(
-      stepIconSize: 60,
       type: _type,
       horizontalTitlePosition: HorizontalTitlePosition.bottom,
       horizontalLinePosition: HorizontalLinePosition.top,
       currentStep: _index,
-      physics: ClampingScrollPhysics(),
       steps: tuples
           .map((e) => EnhanceStep(
                 icon: Icon(
                   e.item1,
-                  // Icons.add,
                   color: Colors.blue,
-                  size: 60,
                 ),
                 state: StepState.values[tuples.indexOf(e)],
                 isActive: _index == tuples.indexOf(e),

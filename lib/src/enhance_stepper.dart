@@ -764,6 +764,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
   Widget _buildHorizontal() {
     final List<Widget> children = <Widget>[
       for (int i = 0; i < widget.steps.length; i += 1) ...<Widget>[
+        if (_isFirst(i)) SizedBox(width: 10),
         InkResponse(
           onTap: widget.steps[i].state != StepState.disabled
               ? () {
@@ -790,22 +791,41 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                   ],
                 ),
         ),
+        if (!_isLast(i))
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 1,
+                width: 10,
+                color: Colors.grey.shade400,
+              ),
+              if (widget.type == StepperType.horizontal &&
+                  widget.horizontalTitlePosition ==
+                      HorizontalTitlePosition.bottom &&
+                  widget.horizontalLinePosition == HorizontalLinePosition.top)
+                const SizedBox(height: 48)
+              else
+                const SizedBox(height: 0)
+            ],
+          ),
+        if (_isLast(i)) SizedBox(width: 10),
       ],
     ];
 
     return Column(
       children: <Widget>[
         Material(
-          color: widget.backgroundColor ?? Colors.white,
           elevation: widget.elevation ?? 2.0,
+          color: widget.backgroundColor ?? Colors.white,
           child: SizedBox(
-            height: widget.horizontalStepperHeight ?? 130,
+            height: widget.horizontalStepperHeight ?? 100,
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: widget.physics,
               children: children
                   .map((e) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 4),
                         child: e,
                       ))
                   .toList(),
