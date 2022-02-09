@@ -6,9 +6,12 @@
 //  Copyright © 7/2/21 shang. All rights reserved.
 //
 
+// add enum  HorizontalTitlePosition and enum  HorizontalLinePosition. circleChild replace by icon.
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// Defines the [Stepper]'s titles position when the [type] is [StepperType.horizontal].
+/// Defines the [Stepper]'s titles position when the type is [StepperType.horizontal].
 enum HorizontalTitlePosition {
   /// A horizontal layout of the steps with their titles position.
   inline,
@@ -17,7 +20,7 @@ enum HorizontalTitlePosition {
   bottom,
 }
 
-/// Defines the [Stepper]'s separator position when the [type] is [StepperType.horizontal].
+/// Defines the [Stepper]'s separator position when the type is [StepperType.horizontal].
 enum HorizontalLinePosition {
   /// A horizontal layout of the steps with their separator position in-between the titles.
   center,
@@ -283,15 +286,15 @@ class EnhanceStepper extends StatefulWidget {
   /// Widget build(BuildContext context) {
   ///   return Stepper(
   ///     controlsBuilder:
-  ///       (BuildContext context, { VoidCallback? onStepContinue, VoidCallback? onStepCancel }) {
+  ///       (BuildContext context, ControlsDetails details) {
   ///          return Row(
   ///            children: <Widget>[
   ///              TextButton(
-  ///                onPressed: onStepContinue,
+  ///                onPressed: details.onStepContinue,
   ///                child: const Text('NEXT'),
   ///              ),
   ///              TextButton(
-  ///                onPressed: onStepCancel,
+  ///                onPressed: details.onStepCancel,
   ///                child: const Text('CANCEL'),
   ///              ),
   ///            ],
@@ -489,13 +492,15 @@ class _EnhanceStepperState extends State<EnhanceStepper>
     }
   }
 
-  Widget _buildVerticalControls() {
+  Widget _buildVerticalControls(int stepIndex) {
     if (widget.controlsBuilder != null)
       return widget.controlsBuilder!(
         context,
         ControlsDetails(
           currentStep: widget.currentStep,
-          stepIndex: widget.currentStep,
+          onStepContinue: widget.onStepContinue,
+          onStepCancel: widget.onStepCancel,
+          stepIndex: stepIndex,
         ),
       );
 
@@ -693,7 +698,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
             child: Column(
               children: <Widget>[
                 widget.steps[index].content,
-                _buildVerticalControls(),
+                _buildVerticalControls(index),
               ],
             ),
           ),
@@ -842,7 +847,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
                 duration: kThemeAnimationDuration,
                 child: widget.steps[widget.currentStep].content,
               ),
-              _buildVerticalControls(),
+              _buildVerticalControls(widget.currentStep),
             ],
           ),
         ),
