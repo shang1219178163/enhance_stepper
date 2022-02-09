@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -53,8 +50,22 @@ class _MyHomePageState extends State<MyHomePage> {
       Icons.directions_railway,
       StepState.complete,
     ),
-    // Tuple2(Icons.directions_boat, StepState.disabled, ),
-    // Tuple2(Icons.directions_car, StepState.error, ),
+    Tuple2(
+      Icons.directions_boat,
+      StepState.disabled,
+    ),
+    Tuple2(
+      Icons.directions_car,
+      StepState.error,
+    ),
+    Tuple2(
+      Icons.directions_boat,
+      StepState.disabled,
+    ),
+    Tuple2(
+      Icons.directions_car,
+      StepState.error,
+    ),
   ];
 
   int _index = 1;
@@ -81,7 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         bottom: buildPreferredSize(context),
       ),
-      body: groupValue == 0 ? buildStepper(context) : buildStepperCustom(context),
+      body:
+          groupValue == 0 ? buildStepper(context) : buildStepperCustom(context),
       // body: buildStepperCustom(context),
     );
   }
@@ -169,22 +181,21 @@ class _MyHomePageState extends State<MyHomePage> {
             _index = index;
           });
         },
-        controlsBuilder: (BuildContext context,
-            {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
+        controlsBuilder: (BuildContext context, ControlsDetails details) {
           return Row(
             children: [
               SizedBox(
                 height: 30,
               ),
               ElevatedButton(
-                onPressed: onStepContinue,
+                onPressed: details.onStepContinue,
                 child: Text("Next"),
               ),
               SizedBox(
                 width: 8,
               ),
               TextButton(
-                onPressed: onStepCancel,
+                onPressed: details.onStepCancel,
                 child: Text("Back"),
               ),
             ],
@@ -194,61 +205,57 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget buildStepperCustom(BuildContext context) {
     return EnhanceStepper(
-        stepIconSize: 60,
-        type: _type,
-        horizontalTitlePosition: HorizontalTitlePosition.bottom,
-        horizontalLinePosition: HorizontalLinePosition.top,
-        currentStep: _index,
-        physics: ClampingScrollPhysics(),
-        steps: tuples
-            .map((e) => EnhanceStep(
-                  icon: Icon(
-                    e.item1,
-                    // Icons.add,
-                    color: Colors.blue,
-                    size: 60,
-                  ),
-                  state: StepState.values[tuples.indexOf(e)],
-                  isActive: _index == tuples.indexOf(e),
-                  title: Text("step ${tuples.indexOf(e)}"),
-                  subtitle: Text(
-                    "${e.item2.toString().split(".").last}",
-                  ),
-                  content: Text("Content for Step ${tuples.indexOf(e)}"),
-                ))
-            .toList(),
-        onStepCancel: () {
-          go(-1);
-        },
-        onStepContinue: () {
-          go(1);
-        },
-        onStepTapped: (index) {
-          ddlog(index);
-          setState(() {
-            _index = index;
-          });
-        },
-        controlsBuilder: (BuildContext context,
-            {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-          return Row(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              ElevatedButton(
-                onPressed: onStepContinue,
-                child: Text("Next"),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              TextButton(
-                onPressed: onStepCancel,
-                child: Text("Back"),
-              ),
-            ],
-          );
+      type: _type,
+      horizontalTitlePosition: HorizontalTitlePosition.bottom,
+      horizontalLinePosition: HorizontalLinePosition.top,
+      currentStep: _index,
+      steps: tuples
+          .map((e) => EnhanceStep(
+                icon: Icon(
+                  e.item1,
+                  color: Colors.blue,
+                ),
+                state: StepState.values[tuples.indexOf(e)],
+                isActive: _index == tuples.indexOf(e),
+                title: Text("step ${tuples.indexOf(e)}"),
+                subtitle: Text(
+                  "${e.item2.toString().split(".").last}",
+                ),
+                content: Text("Content for Step ${tuples.indexOf(e)}"),
+              ))
+          .toList(),
+      onStepCancel: () {
+        go(-1);
+      },
+      onStepContinue: () {
+        go(1);
+      },
+      onStepTapped: (index) {
+        ddlog(index);
+        setState(() {
+          _index = index;
         });
+      },
+      controlsBuilder: (BuildContext context, ControlsDetails details) {
+        return Row(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            ElevatedButton(
+              onPressed: details.onStepContinue,
+              child: Text("Next"),
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            TextButton(
+              onPressed: details.onStepCancel,
+              child: Text("Back"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
