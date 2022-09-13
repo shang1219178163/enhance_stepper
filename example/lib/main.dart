@@ -53,7 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
       Icons.directions_railway,
       StepState.complete,
     ),
-    Tuple2(Icons.directions_boat, StepState.disabled, ),
+    Tuple2(
+      Icons.directions_boat,
+      StepState.disabled,
+    ),
     // Tuple2(Icons.directions_car, StepState.error, ),
   ];
 
@@ -81,7 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         bottom: buildPreferredSize(context),
       ),
-      body: groupValue == 0 ? buildStepper(context) : buildStepperCustom(context),
+      body:
+          groupValue == 0 ? buildStepper(context) : buildStepperCustom(context),
       // body: buildStepperCustom(context),
     );
   }

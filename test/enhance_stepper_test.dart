@@ -4,8 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:enhance_stepper/enhance_stepper.dart';
 
 void main() {
-
-  testWidgets('Stepper horizontal title [HorizontalTitlePosition.bottom] and line [HorizontalLinePosition.top]', (WidgetTester tester) async {
+  testWidgets(
+      'Stepper horizontal title [HorizontalTitlePosition.bottom] and line [HorizontalLinePosition.top]',
+      (WidgetTester tester) async {
     int index = 0;
 
     await tester.pumpWidget(
@@ -48,7 +49,9 @@ void main() {
     expect(index, 1);
   });
 
-  testWidgets('Stepper horizontal title [HorizontalTitlePosition.bottom] and line [HorizontalLinePosition.center]', (WidgetTester tester) async {
+  testWidgets(
+      'Stepper horizontal title [HorizontalTitlePosition.bottom] and line [HorizontalLinePosition.center]',
+      (WidgetTester tester) async {
     int index = 0;
 
     await tester.pumpWidget(

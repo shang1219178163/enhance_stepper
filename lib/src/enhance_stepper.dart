@@ -8,10 +8,8 @@
 
 // add enum  HorizontalTitlePosition and enum  HorizontalLinePosition. circleChild replace by icon.
 
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 /// Defines the [Stepper]'s titles position when the type is [StepperType.horizontal].
 enum HorizontalTitlePosition {
