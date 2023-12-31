@@ -558,7 +558,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
               child: TextButton(
                 onPressed: widget.onStepCancel,
                 style: TextButton.styleFrom(
-                  primary: cancelColor,
+                  disabledForegroundColor: cancelColor,
                   padding: buttonPadding,
                   shape: buttonShape,
                 ),
