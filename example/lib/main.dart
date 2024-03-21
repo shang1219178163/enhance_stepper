@@ -1,18 +1,17 @@
-import 'dart:io';
-
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
 import 'ddlog.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -21,13 +20,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -41,19 +40,22 @@ class _MyHomePageState extends State<MyHomePage> {
   StepperType _type = StepperType.horizontal;
 
   List<Tuple2> tuples = [
-    Tuple2(
+    const Tuple2(
       Icons.directions_bike,
       StepState.indexed,
     ),
-    Tuple2(
+    const Tuple2(
       Icons.directions_bus,
       StepState.editing,
     ),
-    Tuple2(
+    const Tuple2(
       Icons.directions_railway,
       StepState.complete,
     ),
-    Tuple2(Icons.directions_boat, StepState.disabled, ),
+    const Tuple2(
+      Icons.directions_boat,
+      StepState.disabled,
+    ),
     // Tuple2(Icons.directions_car, StepState.error, ),
   ];
 
@@ -74,14 +76,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       : StepperType.vertical;
                 });
               },
-              child: Icon(
+              child: const Icon(
                 Icons.change_circle_outlined,
                 color: Colors.white,
               )),
         ],
         bottom: buildPreferredSize(context),
       ),
-      body: groupValue == 0 ? buildStepper(context) : buildStepperCustom(context),
+      body:
+          groupValue == 0 ? buildStepper(context) : buildStepperCustom(context),
       // body: buildStepperCustom(context),
     );
   }
@@ -93,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(width: 24),
+              const SizedBox(width: 24),
               Expanded(
                 child: CupertinoSegmentedControl(
                   children: const <int, Widget>{
@@ -118,11 +121,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   unselectedColor: Colors.blue,
                 ),
               ),
-              SizedBox(width: 24)
+              const SizedBox(width: 24)
             ],
           ),
         ),
-        preferredSize: Size(double.infinity, 48));
+        preferredSize: const Size(double.infinity, 48));
   }
 
   void go(int index) {
@@ -145,14 +148,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Stepper(
         type: _type,
         currentStep: _index,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         steps: tuples
             .map((e) => Step(
                   state: StepState.values[tuples.indexOf(e)],
                   isActive: _index == tuples.indexOf(e),
                   title: Text("step ${tuples.indexOf(e)}"),
                   subtitle: Text(
-                    "${e.item2.toString().split(".").last}",
+                    e.item2.toString().split(".").last,
                   ),
                   content: Text("Content for Step ${tuples.indexOf(e)}"),
                 ))
@@ -172,19 +175,19 @@ class _MyHomePageState extends State<MyHomePage> {
         controlsBuilder: (BuildContext context, ControlsDetails details) {
           return Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               ElevatedButton(
                 onPressed: details.onStepContinue,
-                child: Text("Next"),
+                child: const Text("Next"),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               TextButton(
                 onPressed: details.onStepCancel,
-                child: Text("Back"),
+                child: const Text("Back"),
               ),
             ],
           );
@@ -198,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
         horizontalTitlePosition: HorizontalTitlePosition.bottom,
         horizontalLinePosition: HorizontalLinePosition.top,
         currentStep: _index,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         steps: tuples
             .map((e) => EnhanceStep(
                   // icon: Icon(
@@ -211,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   isActive: _index == tuples.indexOf(e),
                   title: Text("step ${tuples.indexOf(e)}"),
                   subtitle: Text(
-                    "${e.item2.toString().split(".").last}",
+                    e.item2.toString().split(".").last,
                   ),
                   content: Text("Content for Step ${tuples.indexOf(e)}"),
                 ))
@@ -231,19 +234,19 @@ class _MyHomePageState extends State<MyHomePage> {
         controlsBuilder: (BuildContext context, ControlsDetails details) {
           return Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               ElevatedButton(
                 onPressed: details.onStepContinue,
-                child: Text("Next"),
+                child: const Text("Next"),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               TextButton(
                 onPressed: details.onStepCancel,
-                child: Text("Back"),
+                child: const Text("Back"),
               ),
             ],
           );

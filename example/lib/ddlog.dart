@@ -7,8 +7,7 @@
 //
 
 import 'package:flutter/foundation.dart'
-    show TargetPlatform, defaultTargetPlatform;
-import 'package:flutter/material.dart';
+    show TargetPlatform, defaultTargetPlatform, kDebugMode;
 
 // ignore: non_constant_identifier_names, unnecessary_question_mark
 void ddlog(dynamic? obj) {
@@ -21,7 +20,9 @@ void ddlog(dynamic? obj) {
     model.selectorName,
     model.lineNumber == "" ? "" : "[${model.lineNumber}:${model.columnNumber}]"
   ].where((element) => element != "");
-  print("${list.join(" ")}: $obj");
+  if (kDebugMode) {
+    print("${list.join(" ")}: $obj");
+  }
 }
 
 /// TraceModel
@@ -52,16 +53,16 @@ class DDTraceModel {
               .where((element) => element != "")
               .toList();
           // this.selectorName = list.last.replaceAll("[", "").replaceAll("]", "()").trim();
-          this.selectorName = list[1];
+          selectorName = list[1];
 
           var nameAndLines = list.last.split("/").last.split(".dart:");
-          this.className = nameAndLines.first + ".dart";
+          className = nameAndLines.first + ".dart";
           _parseLineAndcolumn(location: nameAndLines.last);
         }
         break;
       default:
         {
-          var traceString1 = this._trace.toString().split("\n")[1];
+          var traceString1 = _trace.toString().split("\n")[1];
 
           List<String> list = traceString1
               .replaceAll("#1", "")
@@ -74,8 +75,8 @@ class DDTraceModel {
               .toList();
 
           var fileInfo = list.first.split(".").toList();
-          this.className = fileInfo.first;
-          this.selectorName = fileInfo.last + "()";
+          className = fileInfo.first;
+          selectorName = fileInfo.last + "()";
 
           _parseClassName(path: list[1]);
           _parseLineAndcolumn(location: list.last);
@@ -93,7 +94,7 @@ class DDTraceModel {
           .split(" ")
           .where((element) => element != "")
           .toList();
-      this.fileName = list.first.trim();
+      fileName = list.first.trim();
     }
   }
 
@@ -101,8 +102,8 @@ class DDTraceModel {
   void _parseLineAndcolumn({required String location}) {
     if (location.contains(":")) {
       List<String> list = location.split(":");
-      this.lineNumber = list.first.trim();
-      this.columnNumber = list.last.trim().replaceAll(")", "");
+      lineNumber = list.first.trim();
+      columnNumber = list.last.trim().replaceAll(")", "");
     }
   }
 }
