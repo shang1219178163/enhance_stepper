@@ -1,3 +1,7 @@
+## 1.0.1
+
+* TODO: stepIconBuilder 扩展
+
 ## 1.0.0
 
 * TODO: 支持 flutter 3.16.9
