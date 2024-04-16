@@ -8,7 +8,6 @@
 
 // add enum  HorizontalTitlePosition and enum  HorizontalLinePosition. circleChild replace by icon.
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// Defines the [Stepper]'s titles position when the type is [StepperType.horizontal].
@@ -544,7 +543,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
               child: TextButton(
                 onPressed: widget.onStepCancel,
                 style: TextButton.styleFrom(
-                  primary: cancelColor,
+                  foregroundColor: cancelColor,
                   padding: buttonPadding,
                   shape: buttonShape,
                 ),
@@ -566,13 +565,13 @@ class _EnhanceStepperState extends State<EnhanceStepper>
       case StepState.editing:
       case StepState.complete:
         // case StepState.customIcon:
-        return textTheme.bodyText1!;
+        return textTheme.bodyLarge!;
       case StepState.disabled:
-        return textTheme.bodyText1!.copyWith(
+        return textTheme.bodyLarge!.copyWith(
           color: _isDark() ? _kDisabledDark : _kDisabledLight,
         );
       case StepState.error:
-        return textTheme.bodyText1!.copyWith(
+        return textTheme.bodyLarge!.copyWith(
           color: _isDark() ? _kErrorDark : _kErrorLight,
         );
     }
@@ -587,13 +586,13 @@ class _EnhanceStepperState extends State<EnhanceStepper>
       case StepState.editing:
       case StepState.complete:
         // case StepState.customIcon:
-        return textTheme.caption!;
+        return textTheme.bodySmall!;
       case StepState.disabled:
-        return textTheme.caption!.copyWith(
+        return textTheme.bodySmall!.copyWith(
           color: _isDark() ? _kDisabledDark : _kDisabledLight,
         );
       case StepState.error:
-        return textTheme.caption!.copyWith(
+        return textTheme.bodySmall!.copyWith(
           color: _isDark() ? _kErrorDark : _kErrorLight,
         );
     }
