@@ -1,3 +1,7 @@
+## 1.0.0
+
+* TODO: 支持 flutter 3.16.9
+
 ## 0.1.1
 
 * TODO: fix a bug.
