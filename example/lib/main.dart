@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        useMaterial3: false,
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -103,11 +104,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: const <int, Widget>{
                     0: Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('Stepper', style: TextStyle(fontSize: 15))),
+                        child: Text('Stepper', style: TextStyle(fontSize: 15),
+                        ),
+                    ),
                     1: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text('enhance_stepper',
-                            style: TextStyle(fontSize: 15))),
+                            style: TextStyle(fontSize: 15),
+                        ),
+                    ),
                   },
                   groupValue: groupValue,
                   onValueChanged: (value) {
@@ -122,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   unselectedColor: Colors.blue,
                 ),
               ),
-              SizedBox(width: 24)
+              SizedBox(width: 24),
             ],
           ),
         ),
