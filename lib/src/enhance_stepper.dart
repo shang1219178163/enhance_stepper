@@ -204,20 +204,9 @@ class EnhanceStepper extends StatefulWidget {
     this.onStepContinue,
     this.onStepCancel,
     this.controlsBuilder,
-    this.elevation,
-    this.padding,
-    this.backgroundColor,
+    this.stepIconBuilder,
   })  : assert(0 <= currentStep && currentStep < steps.length),
         super(key: key);
-
-  // Background color of stepper
-  final Color? backgroundColor;
-
-  // Padding of stepper content
-  final EdgeInsets? padding;
-
-  // The elevation of stepper
-  final double? elevation;
 
   /// The steps of the stepper whose titles, subtitles, icons always get shown.
   ///
@@ -317,6 +306,8 @@ class EnhanceStepper extends StatefulWidget {
   /// {@end-tool}
   final ControlsWidgetBuilder? controlsBuilder;
 
+  final StepIconBuilder? stepIconBuilder;
+
   @override
   State<EnhanceStepper> createState() => _EnhanceStepperState();
 }
@@ -372,12 +363,11 @@ class _EnhanceStepperState extends State<EnhanceStepper>
   }
 
   Widget _buildicon(int index, bool oldState) {
-    final StepState state =
-        oldState ? _oldStates[index]! : widget.steps[index].state;
+    final StepState state = oldState ? _oldStates[index]! : widget.steps[index].state;
     final bool isDarkActive = _isDark() && widget.steps[index].isActive;
-
-    if (widget.steps[index].icon != null && state != StepState.error) {
-      return widget.steps[index].icon!;
+    final Widget? icon = widget.stepIconBuilder?.call(index, state);
+    if (icon != null) {
+      return icon;
     }
 
     switch (state) {
@@ -815,8 +805,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
     return Column(
       children: <Widget>[
         Material(
-          color: widget.backgroundColor ?? Colors.white,
-          elevation: widget.elevation ?? 2.0,
+          elevation: 2.0,
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Row(
@@ -827,7 +816,7 @@ class _EnhanceStepperState extends State<EnhanceStepper>
         Expanded(
           child: ListView(
             physics: widget.physics,
-            padding: widget.padding ?? const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(24.0),
             children: <Widget>[
               AnimatedSize(
                 curve: Curves.fastOutSlowIn,

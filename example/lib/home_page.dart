@@ -6,13 +6,11 @@
 //  Copyright © 2024/4/16 shang. All rights reserved.
 //
 
-
+import 'package:ddlog/ddlog.dart';
 import 'package:enhance_stepper/enhance_stepper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
-
-import 'package:example/ddlog.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -57,23 +55,20 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: [
           TextButton(
-              onPressed: () {
-                // ddlog("change");
-                _type = _type == StepperType.vertical
-                    ? StepperType.horizontal
-                    : StepperType.vertical;
-                setState(() {});
-              },
-              child: Icon(
-                Icons.change_circle_outlined,
-                color: Colors.white,
-              ),
+            onPressed: () {
+              // DLog.d("change");
+              _type = _type == StepperType.vertical ? StepperType.horizontal : StepperType.vertical;
+              setState(() {});
+            },
+            child: Icon(
+              Icons.change_circle_outlined,
+              color: Colors.white,
+            ),
           ),
         ],
         bottom: buildPreferredSize(),
       ),
-      body:
-      groupValue == 0 ? buildStepper() : buildStepperCustom(),
+      body: groupValue == 0 ? buildStepper() : buildStepperCustom(),
       // body: buildStepperCustom(context),
     );
   }
@@ -91,23 +86,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: const <int, Widget>{
                     0: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text('Stepper', style: TextStyle(fontSize: 15),
+                      child: Text(
+                        'Stepper',
+                        style: TextStyle(fontSize: 15),
                       ),
                     ),
                     1: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text('enhance_stepper',
+                      child: Text(
+                        'enhance_stepper',
                         style: TextStyle(fontSize: 15),
                       ),
                     ),
                   },
                   groupValue: groupValue,
                   onValueChanged: (value) {
-                    // TODO: - fix it
-                    // ddlog(value.toString());
-                    setState(() {
-                      groupValue = int.parse("$value");
-                    });
+                    // DLog.d(value.toString());
+                    groupValue = int.parse("$value");
+                    setState(() {});
                   },
                   borderColor: Colors.white,
                   selectedColor: Colors.white,
@@ -123,12 +119,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void go(int index) {
     if (index == -1 && _index <= 0) {
-      ddlog("it's first Step!");
+      DLog.d("it's first Step!");
       return;
     }
 
     if (index == 1 && _index >= tuples.length - 1) {
-      ddlog("it's last Step!");
+      DLog.d("it's last Step!");
       return;
     }
     _index += index;
@@ -142,14 +138,14 @@ class _MyHomePageState extends State<MyHomePage> {
         physics: ClampingScrollPhysics(),
         steps: tuples
             .map((e) => Step(
-          state: StepState.values[tuples.indexOf(e)],
-          isActive: _index == tuples.indexOf(e),
-          title: Text("step ${tuples.indexOf(e)}"),
-          subtitle: Text(
-            "${e.item2.toString().split(".").last}",
-          ),
-          content: Text("Content for Step ${tuples.indexOf(e)}"),
-        ))
+                  state: StepState.values[tuples.indexOf(e)],
+                  isActive: _index == tuples.indexOf(e),
+                  title: Text("step ${tuples.indexOf(e)}"),
+                  subtitle: Text(
+                    "${e.item2.toString().split(".").last}",
+                  ),
+                  content: Text("Content for Step ${tuples.indexOf(e)}"),
+                ))
             .toList(),
         onStepCancel: () {
           go(-1);
@@ -158,10 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
           go(1);
         },
         onStepTapped: (index) {
-          ddlog(index);
-          setState(() {
-            _index = index;
-          });
+          DLog.d(index);
+          _index = index;
+          setState(() {});
         },
         controlsBuilder: (BuildContext context, ControlsDetails details) {
           return Row(
@@ -187,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget buildStepperCustom() {
     return EnhanceStepper(
-      // stepIconSize: 60,
+        // stepIconSize: 60,
         type: _type,
         horizontalTitlePosition: HorizontalTitlePosition.bottom,
         horizontalLinePosition: HorizontalLinePosition.top,
@@ -195,20 +190,20 @@ class _MyHomePageState extends State<MyHomePage> {
         physics: ClampingScrollPhysics(),
         steps: tuples
             .map((e) => EnhanceStep(
-          // icon: Icon(
-          //   e.item1,
-          //   // Icons.add,
-          //   color: Colors.blue,
-          //   size: 60,
-          // ),
-          state: StepState.values[tuples.indexOf(e)],
-          isActive: _index == tuples.indexOf(e),
-          title: Text("step ${tuples.indexOf(e)}"),
-          subtitle: Text(
-            "${e.item2.toString().split(".").last}",
-          ),
-          content: Text("Content for Step ${tuples.indexOf(e)}"),
-        ))
+                  // icon: Icon(
+                  //   e.item1,
+                  //   // Icons.add,
+                  //   color: Colors.blue,
+                  //   size: 60,
+                  // ),
+                  state: StepState.values[tuples.indexOf(e)],
+                  isActive: _index == tuples.indexOf(e),
+                  title: Text("step ${tuples.indexOf(e)}"),
+                  subtitle: Text(
+                    "${e.item2.toString().split(".").last}",
+                  ),
+                  content: Text("Content for Step ${tuples.indexOf(e)}"),
+                ))
             .toList(),
         onStepCancel: () {
           go(-1);
@@ -217,10 +212,9 @@ class _MyHomePageState extends State<MyHomePage> {
           go(1);
         },
         onStepTapped: (index) {
-          ddlog(index);
-          setState(() {
-            _index = index;
-          });
+          DLog.d(index);
+          _index = index;
+          setState(() {});
         },
         controlsBuilder: (BuildContext context, ControlsDetails details) {
           return Row(

@@ -2,13 +2,16 @@
 
 [![pub](https://img.shields.io/pub/v/enhance_stepper.svg)](https://pub.dev/packages/enhance_stepper)
 
+```dart
+enhance_stepper: ^1.0.1
+```
 
 An easy to implement Extra features.
 
 * add alternate labels to the stepper in flutter.
 * add step icon change.
 
-```
+```dart
 EnhanceStepper(
     stepIconSize: 30,
     type: _type,
@@ -75,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: [
           TextButton(onPressed: (){
-            ddlog("change");
+            DLog.d("change");
             setState(() {
               _type = _type == StepperType.vertical ? StepperType.horizontal : StepperType.vertical;
             });
@@ -88,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void go(int index) {
     if (index == -1 && _index <= 0 ) {
-      ddlog("it's first Step!");
+      DLog.d("it's first Step!");
       return;
     }
 
@@ -125,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
           go(1);
         },
         onStepTapped: (index) {
-          ddlog(index);
+          DLog.d(index);
           setState(() {
             _index = index;
           });
